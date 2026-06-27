@@ -9,3 +9,4 @@ __pycache__/
 env/
 /.mypy_cache/
 *.log
+CLAUDE.md
