@@ -24,12 +24,30 @@ GitHub Pages, itch.io, Netlify, etc.
 
 ## Controls
 
+### Keyboard + mouse (desktop)
+
 - Move: mouse
 - Smash / Confirm: Space
 - Menu: Esc
 - Skill select (during selection): 1 / 2 / 3 / 4
 
-Audio starts after the first key press (browser autoplay policy).
+### Touch (smartphones / tablets)
+
+Phones have no physical keyboard, so on-screen buttons below the canvas mirror
+every key and the game is fully playable by touch:
+
+- Move paddle: drag on the canvas
+- Smash / Confirm (Space): the large **決定 / スマッシュ** button — also starts
+  the game from the menu and confirms skill selection
+- Skill select: the **1 / 2 / 3 / 4** buttons
+- Difficulty: **NORMAL** / **HARD** buttons
+- Menu (Esc): the **メニュー** button
+
+The buttons are always visible (on every screen, including the menu) and route
+through the same handler as physical keys, so touch and keyboard behave
+identically.
+
+Audio starts after the first key press or button tap (browser autoplay policy).
 
 ## Structure
 
