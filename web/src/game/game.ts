@@ -124,6 +124,13 @@ export class Game {
     this.running = true;
     window.addEventListener("keydown", this.onKeyDown);
     this.canvas.addEventListener("mousemove", this.onMouseMove);
+    // Touch: drag on the canvas moves the paddle (smartphone support).
+    this.canvas.addEventListener("touchstart", this.onTouchStart, {
+      passive: false,
+    });
+    this.canvas.addEventListener("touchmove", this.onTouchMove, {
+      passive: false,
+    });
     this.lastTime = performance.now();
     this.rafId = requestAnimationFrame(this.loop);
   }
@@ -133,6 +140,8 @@ export class Game {
     cancelAnimationFrame(this.rafId);
     window.removeEventListener("keydown", this.onKeyDown);
     this.canvas.removeEventListener("mousemove", this.onMouseMove);
+    this.canvas.removeEventListener("touchstart", this.onTouchStart);
+    this.canvas.removeEventListener("touchmove", this.onTouchMove);
   }
 
   private loop = (t: number): void => {
@@ -182,6 +191,41 @@ export class Game {
     this.mouseX = (e.clientX - r.left) * (SCREEN_W / r.width);
     this.mouseY = (e.clientY - r.top) * (SCREEN_H / r.height);
   };
+
+  // ----- Touch (smartphone) -----
+
+  private onTouchStart = (e: TouchEvent): void => {
+    e.preventDefault(); // stop page scroll/zoom and synthetic mouse events
+    // First gesture unlocks the audio context (browser autoplay policy).
+    this.snd.init();
+    this.snd.resume();
+    this.updateTouch(e);
+  };
+
+  private onTouchMove = (e: TouchEvent): void => {
+    e.preventDefault();
+    this.updateTouch(e);
+  };
+
+  /** Map the active touch point to canvas coords, reusing the mouse pipeline. */
+  private updateTouch(e: TouchEvent): void {
+    const t = e.touches[0] ?? e.changedTouches[0];
+    if (!t) return;
+    const r = this.canvas.getBoundingClientRect();
+    this.mouseX = (t.clientX - r.left) * (SCREEN_W / r.width);
+    this.mouseY = (t.clientY - r.top) * (SCREEN_H / r.height);
+  }
+
+  /**
+   * Trigger a key action from an on-screen touch button. Phones have no
+   * keyboard, so the UI buttons in GameCanvas route through here, reusing the
+   * exact same dispatch as physical keys (a Space-key alternative for touch).
+   */
+  press(token: NonNullable<KeyToken>): void {
+    this.snd.init();
+    this.snd.resume();
+    this.handleKey(token);
+  }
 
   private onKeyDown = (e: KeyboardEvent): void => {
     const key = this.tokenFor(e);

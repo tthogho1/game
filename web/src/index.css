@@ -41,6 +41,10 @@ body {
   /* Scale down responsively while keeping the 4:3 aspect ratio. */
   max-width: 100%;
   height: auto;
+  /* Touch: drag the paddle without scrolling/zooming the page. */
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .hint {
@@ -48,4 +52,82 @@ body {
   color: #6a6a7a;
   text-align: center;
   line-height: 1.6;
+}
+
+.game-wrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 800px;
+}
+
+/* On-screen touch controls (keyboard alternative for phones/tablets). */
+.touch-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.tc-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.tc-label {
+  font-size: 12px;
+  color: #6a6a7a;
+}
+
+.tc-btn {
+  font-family: monospace;
+  font-size: 15px;
+  color: #c8c8d2;
+  background: #1a1a2e;
+  border: 2px solid #00dce6;
+  border-radius: 10px;
+  padding: 10px 16px;
+  min-width: 52px;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tc-btn:active {
+  background: #00dce6;
+  color: #05050f;
+}
+
+.tc-primary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  width: 100%;
+  max-width: 360px;
+  padding: 14px 28px;
+  font-size: 18px;
+  color: #ffd200;
+  background: #14233a;
+  border-color: #ffd200;
+}
+
+.tc-primary:active {
+  background: #ffd200;
+  color: #05050f;
+}
+
+.tc-sub {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: #6a6a7a;
 }

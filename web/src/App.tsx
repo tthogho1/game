@@ -6,10 +6,9 @@ export default function App() {
       <h1>ARKANOID vs INVADERS</h1>
       <GameCanvas />
       <div className="hint">
-        マウス: 移動 / SPACE: スマッシュ・決定 / ESC: メニュー / 1-4:
-        スキル選択
+        PC: マウスで移動 / SPACE でスマッシュ・決定 / ESC でメニュー / 1-4 でスキル
         <br />
-        Move: mouse &nbsp;·&nbsp; Smash / Confirm: Space &nbsp;·&nbsp; Menu: Esc
+        スマホ: 画面をドラッグで移動、下のボタンで操作
       </div>
     </div>
   );
